@@ -5,3 +5,4 @@ In order to trigger the Dockerhub automated build task, please submit the commit
 git tag <version>
 
 git push origin master --tags
+
