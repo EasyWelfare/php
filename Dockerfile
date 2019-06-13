@@ -1,4 +1,4 @@
-FROM php:7.3.5-apache-stretch
+FROM php:7.3.6-apache-stretch
 
 RUN apt-get update &&\
     apt-get install -y \
