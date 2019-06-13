@@ -16,6 +16,8 @@ RUN apt-get update && apt-get install -y \
         libmcrypt-dev \
         libpng-dev \
         libicu-dev \
+    && docker-php-ext-configure opcache --enable-opcache \
+    && docker-php-ext-install opcache \
     && docker-php-ext-install -j$(nproc) iconv intl \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install pcntl \
@@ -24,6 +26,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) gd \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+COPY config/opcache.ini $PHP_INI_DIR/conf.d/
 # install mongodb ext
 RUN pecl install mongodb \
     && docker-php-ext-enable mongodb
