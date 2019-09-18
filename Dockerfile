@@ -16,20 +16,16 @@ RUN apt-get update && apt-get install -y \
         libmcrypt-dev \
         libpng-dev \
         libicu-dev \
+        libgmp-dev \
+        libsodium-dev \
+    && pecl install libsodium mcrypt mongodb \
     && docker-php-ext-configure opcache --enable-opcache \
-    && docker-php-ext-install opcache \
-    && docker-php-ext-install -j$(nproc) iconv intl \
-    && docker-php-ext-install pdo_mysql \
-    && docker-php-ext-install pcntl \
-    && docker-php-ext-install bcmath \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install -j$(nproc) gmp gd opcache iconv intl pdo_mysql pcntl bcmath \
+    && docker-php-ext-enable mcrypt mongodb \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY config/opcache.ini $PHP_INI_DIR/conf.d/
-# install mongodb ext
-RUN pecl install mongodb \
-    && docker-php-ext-enable mongodb
 
 # install php composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
