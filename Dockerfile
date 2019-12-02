@@ -2,7 +2,7 @@ FROM php:7.4.0-apache-buster
 
 RUN apt-get update &&\
     apt-get install -y \
-    mycli \
+    mariadb-client \
     git \
     zip \
     unzip \
