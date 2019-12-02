@@ -1,4 +1,4 @@
-FROM php:7.3.11-apache-stretch
+FROM php:7.4.0-apache-stretch
 
 RUN apt-get update &&\
     apt-get install -y \
