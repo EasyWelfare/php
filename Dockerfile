@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
         libsodium-dev \
     && pecl install libsodium mcrypt mongodb \
     && docker-php-ext-configure opcache --enable-opcache \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gmp gd opcache iconv intl pdo_mysql pcntl bcmath \
     && docker-php-ext-enable mcrypt mongodb \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
