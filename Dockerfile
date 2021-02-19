@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y \
         libpng-dev \
         libicu-dev \
 	libgmp-dev \
+	libmcrypt-dev \
     && docker-php-ext-install -j$(nproc) iconv intl \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install pcntl \
@@ -26,6 +27,10 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) gd \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# install mcrypt
+RUN pecl install mcrypt-1.0.1 \
+    && docker-php-ext-enable mcrypt
+	
 # install mongodb ext
 RUN pecl install mongodb \
     && docker-php-ext-enable mongodb
